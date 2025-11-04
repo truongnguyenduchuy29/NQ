@@ -4,6 +4,7 @@ import { Heart } from 'lucide-react';
 const BirthdayLetter = () => {
   const [isOpening, setIsOpening] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+  const [showPaper, setShowPaper] = useState(false);
   const [hearts, setHearts] = useState<
     Array<{ id: number; x: number; y: number }>
   >([]);
@@ -40,10 +41,17 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
     setHearts(newHearts);
     setIsOpening(true);
 
+    // Show paper flying out after hearts start bursting
+    setTimeout(() => {
+      setShowPaper(true);
+    }, 1200);
+
+    // Open the letter/card after paper settles
     setTimeout(() => {
       setIsOpened(true);
-    }, 1500);
+    }, 3000);
 
+    // Clear hearts after they finish
     setTimeout(() => {
       setHearts([]);
     }, 3500);
@@ -102,11 +110,50 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
   }, [isOpened, fullText]);
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-rose-100 via-pink-100 to-purple-100 overflow-hidden">
+      {/* Animated background pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,182,193,0.3),transparent_50%)] animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(216,180,254,0.3),transparent_50%)] animate-pulse-slow-delayed"></div>
+      </div>
+
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Floating confetti - более изящные */}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={`confetti-${i}`}
+            className="absolute animate-confetti-fall"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${10 + Math.random() * 5}s`,
+            }}
+          >
+            <span
+              className="text-3xl drop-shadow-lg"
+              style={{
+                transform: `rotate(${Math.random() * 360}deg)`,
+                filter: 'brightness(1.2)',
+              }}
+            >
+              {['🎊', '🎉', '✨', '🌟', '💝'][Math.floor(Math.random() * 5)]}
+            </span>
+          </div>
+        ))}
+
+        {/* Corner decorations - subtler */}
+        <div className="absolute top-8 left-8 text-5xl animate-float opacity-50 blur-[0.5px]">🎈</div>
+        <div className="absolute top-16 right-12 text-4xl animate-float-delayed opacity-50 blur-[0.5px]">🎀</div>
+        <div className="absolute bottom-16 left-16 text-4xl animate-float-slow opacity-50 blur-[0.5px]">🎂</div>
+        <div className="absolute bottom-12 right-20 text-5xl animate-float opacity-50 blur-[0.5px]">�</div>
+      </div>
+
       {hearts.map((heart) => (
         <div
           key={heart.id}
-          className="absolute pointer-events-none animate-heart-burst"
+          className="absolute pointer-events-none animate-heart-burst z-20"
           style={
             {
               left: '50%',
@@ -120,16 +167,50 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
         </div>
       ))}
 
-      <div className="relative">
+      <div className="relative z-10">
         {!isOpened ? (
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-8">
+            {/* Elegant frame around envelope */}
+            <div className="absolute -inset-12 bg-gradient-to-br from-white/60 via-pink-50/50 to-purple-50/50 backdrop-blur-md rounded-[2rem] border border-white/80 shadow-[0_8px_32px_rgba(255,182,193,0.3)] -z-10"></div>
+            
+            {/* Flying paper from envelope */}
+            {showPaper && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-paper-fly z-30">
+                <div className="bg-gradient-to-br from-white to-pink-50 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] p-8 w-80 transform animate-paper-unfold border-2 border-pink-200/50">
+                  <div className="text-center">
+                    <div className="text-5xl mb-3 animate-bounce">💌</div>
+                    <div className="h-1 w-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mx-auto mb-3"></div>
+                    <p className="text-xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                      Đang mở thư...
+                    </p>
+                    <div className="flex justify-center gap-1 mt-3">
+                      {[...Array(3)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
+                          style={{ animationDelay: `${i * 0.15}s` }}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             {/* Instruction text */}
-            <div className="text-center">
-              <p className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse mb-2">
-                ✨ Click để mở thư ✨
-              </p>
-              <p className="text-sm text-gray-500 animate-bounce">
-                👇 Nhấn vào phong bì 👇
+            <div className="text-center relative mb-4">
+              {/* Decorative sparkles */}
+              <div className="absolute -left-16 top-0 text-2xl animate-twinkle">✨</div>
+              <div className="absolute -right-16 top-0 text-2xl animate-twinkle" style={{ animationDelay: '0.5s' }}>✨</div>
+              
+              <div className="inline-block">
+                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 mb-2 drop-shadow-sm">
+                  Click để mở thư
+                </p>
+                <div className="h-1 w-full bg-gradient-to-r from-pink-400 via-rose-400 to-purple-500 rounded-full animate-shimmer"></div>
+              </div>
+              <p className="text-sm text-gray-600 mt-3 font-medium">
+                👇 Nhấn vào phong bì bên dưới 👇
               </p>
             </div>
 
@@ -260,21 +341,26 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
 
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <div className="text-lg whitespace-pre-wrap min-h-[300px] relative">
-                  <span className="typewriter-text">
-                    {displayedText.split('').map((char, index) => (
-                      <span
-                        key={index}
-                        className="inline-block typewriter-char"
-                        style={{
-                          animationDelay: `${index * 0.04}s`,
-                        }}
-                      >
-                        {char === '\n' ? <br /> : char}
-                      </span>
-                    ))}
-                  </span>
+                  {displayedText.split('\n').map((line, lineIndex) => (
+                    <div key={lineIndex} className="mb-4">
+                      {line.split('').map((char, charIndex) => {
+                        const globalIndex = displayedText.substring(0, displayedText.split('\n').slice(0, lineIndex).join('\n').length + (lineIndex > 0 ? 1 : 0)).length + charIndex;
+                        return (
+                          <span
+                            key={`${lineIndex}-${charIndex}`}
+                            className="typewriter-char"
+                            style={{
+                              animationDelay: `${globalIndex * 0.01}s`,
+                            }}
+                          >
+                            {char}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ))}
                   {displayedText.length < fullText.length && (
-                    <span className="inline-block w-[2px] h-6 bg-purple-500 animate-cursor-blink ml-[2px] align-middle"></span>
+                    <span className="inline-block w-[2px] h-6 bg-purple-500 animate-cursor-blink ml-[1px] -mt-1 align-text-bottom"></span>
                   )}
                 </div>
               </div>
@@ -434,13 +520,9 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
         }
 
         .typewriter-char {
-          animation: char-appear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-          opacity: 0;
-        }
-
-        .typewriter-text {
           display: inline;
-          line-height: 1.8;
+          animation: char-appear 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          opacity: 0;
         }
 
         .animate-cursor-blink {
@@ -547,6 +629,168 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
 
         .animate-expand {
           animation: expand 1s ease-out forwards;
+        }
+
+        /* Background decorations animations */
+        @keyframes confetti-fall {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0.3;
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-30px) rotate(10deg);
+          }
+        }
+
+        @keyframes float-delayed {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-25px) rotate(-8deg);
+          }
+        }
+
+        @keyframes float-slow {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(5deg);
+          }
+        }
+
+        @keyframes twinkle-delayed {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.3;
+            transform: scale(0.7);
+          }
+        }
+
+        .animate-confetti-fall {
+          animation: confetti-fall linear infinite;
+        }
+
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+          animation: float-delayed 5s ease-in-out infinite;
+          animation-delay: 1s;
+        }
+
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+          animation-delay: 2s;
+        }
+
+        .animate-twinkle-delayed {
+          animation: twinkle-delayed 3s ease-in-out infinite;
+          animation-delay: 1.5s;
+        }
+
+        /* Paper flying and unfolding animations */
+        @keyframes paper-fly {
+          0% {
+            transform: translateY(100px) scale(0.3) rotate(0deg);
+            opacity: 0;
+          }
+          30% {
+            transform: translateY(-50px) scale(0.8) rotate(15deg);
+            opacity: 1;
+          }
+          60% {
+            transform: translateY(20px) scale(1.1) rotate(-10deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(0) scale(1) rotate(0deg);
+            opacity: 1;
+          }
+        }
+
+        @keyframes paper-unfold {
+          0% {
+            transform: scaleY(0.3) rotateX(90deg);
+            opacity: 0;
+          }
+          50% {
+            transform: scaleY(1) rotateX(-10deg);
+          }
+          100% {
+            transform: scaleY(1) rotateX(0deg);
+            opacity: 1;
+          }
+        }
+
+        .animate-paper-fly {
+          animation: paper-fly 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .animate-paper-unfold {
+          animation: paper-unfold 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+          transform-origin: center top;
+        }
+
+        /* New improved animations */
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.5;
+            transform: scale(1.1);
+          }
+        }
+
+        @keyframes pulse-slow-delayed {
+          0%, 100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(1.15);
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -100% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+
+        .animate-pulse-slow-delayed {
+          animation: pulse-slow-delayed 5s ease-in-out infinite;
+          animation-delay: 1s;
+        }
+
+        .animate-shimmer {
+          background-size: 200% 100%;
+          animation: shimmer 3s linear infinite;
         }
       `}</style>
     </div>
