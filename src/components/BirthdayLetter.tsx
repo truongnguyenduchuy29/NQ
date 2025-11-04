@@ -4,8 +4,20 @@ import { Heart } from 'lucide-react';
 const BirthdayLetter = () => {
   const [isOpening, setIsOpening] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
-  const [hearts, setHearts] = useState<Array<{ id: number; x: number; y: number }>>([]);
-  const [bubbles, setBubbles] = useState<Array<{ id: number; left: string; tx: string; size: number; delay: number; duration: number; bg: string }>>([]);
+  const [hearts, setHearts] = useState<
+    Array<{ id: number; x: number; y: number }>
+  >([]);
+  const [bubbles, setBubbles] = useState<
+    Array<{
+      id: number;
+      left: string;
+      tx: string;
+      size: number;
+      delay: number;
+      duration: number;
+      bg: string;
+    }>
+  >([]);
   const [displayedText, setDisplayedText] = useState('');
 
   const fullText = `Chúc bạn một ngày sinh nhật thật vui vẻ và tràn đầy niềm vui! 🎈
@@ -95,12 +107,14 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
         <div
           key={heart.id}
           className="absolute pointer-events-none animate-heart-burst"
-          style={{
-            left: '50%',
-            top: '50%',
-            '--tx': `${heart.x}px`,
-            '--ty': `${heart.y}px`,
-          } as React.CSSProperties}
+          style={
+            {
+              left: '50%',
+              top: '50%',
+              '--tx': `${heart.x}px`,
+              '--ty': `${heart.y}px`,
+            } as React.CSSProperties
+          }
         >
           <Heart className="text-red-500 fill-red-500" size={24} />
         </div>
@@ -124,63 +138,68 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
               className="cursor-pointer transform transition-transform hover:scale-105 active:scale-95"
             >
               <div className="relative w-80 h-52">
-              <div
-                className={`absolute inset-0 transition-all duration-[1200ms] ease-out ${
-                  isOpening ? 'opacity-0 scale-110 rotate-6' : 'opacity-100'
-                }`}
-              >
-                <svg viewBox="0 0 320 208" className="w-full h-full drop-shadow-2xl">
-                  <path
-                    d="M10 10 L160 120 L310 10 L310 198 L10 198 Z"
-                    fill="#f5e6d3"
-                    stroke="#2c1810"
-                    strokeWidth="3"
-                    strokeLinejoin="round"
-                  />
+                <div
+                  className={`absolute inset-0 transition-all duration-[1200ms] ease-out ${
+                    isOpening ? 'opacity-0 scale-110 rotate-6' : 'opacity-100'
+                  }`}
+                >
+                  <svg
+                    viewBox="0 0 320 208"
+                    className="w-full h-full drop-shadow-2xl"
+                  >
+                    <path
+                      d="M10 10 L160 120 L310 10 L310 198 L10 198 Z"
+                      fill="#f5e6d3"
+                      stroke="#2c1810"
+                      strokeWidth="3"
+                      strokeLinejoin="round"
+                    />
 
-                  <path
-                    d="M10 10 L160 120 L310 10"
-                    fill="none"
-                    stroke="#2c1810"
-                    strokeWidth="3"
-                    strokeLinejoin="round"
-                  />
+                    <path
+                      d="M10 10 L160 120 L310 10"
+                      fill="none"
+                      stroke="#2c1810"
+                      strokeWidth="3"
+                      strokeLinejoin="round"
+                    />
 
-                  <path
-                    d="M10 10 L160 120 L310 10 L160 10 Z"
-                    fill="#e8d4b8"
-                    stroke="#2c1810"
-                    strokeWidth="3"
-                    strokeLinejoin="round"
-                    className={isOpening ? 'animate-flap-open' : ''}
-                    style={{ transformOrigin: '160px 10px' }}
-                  />
+                    <path
+                      d="M10 10 L160 120 L310 10 L160 10 Z"
+                      fill="#e8d4b8"
+                      stroke="#2c1810"
+                      strokeWidth="3"
+                      strokeLinejoin="round"
+                      className={isOpening ? 'animate-flap-open' : ''}
+                      style={{ transformOrigin: '160px 10px' }}
+                    />
 
-                  <ellipse
-                    cx="160"
-                    cy="100"
-                    rx="22"
-                    ry="26"
-                    fill="#ef4444"
-                    stroke="#2c1810"
-                    strokeWidth="2"
-                  />
+                    <ellipse
+                      cx="160"
+                      cy="100"
+                      rx="22"
+                      ry="26"
+                      fill="#ef4444"
+                      stroke="#2c1810"
+                      strokeWidth="2"
+                    />
 
-                  <path
-                    d="M 160 85 Q 145 95 145 105 Q 145 115 160 125 Q 175 115 175 105 Q 175 95 160 85 Z"
-                    fill="#dc2626"
-                  />
-                </svg>
+                    <path
+                      d="M 160 85 Q 145 95 145 105 Q 145 115 160 125 Q 175 115 175 105 Q 175 95 160 85 Z"
+                      fill="#dc2626"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  className={`absolute inset-0 flex items-center justify-center transition-all duration-[1000ms] ease-in-out ${
+                    isOpening
+                      ? 'opacity-100 scale-110 rotate-12'
+                      : 'opacity-0 scale-50'
+                  }`}
+                >
+                  <div className="text-6xl animate-pulse">💌</div>
+                </div>
               </div>
-
-              <div
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-[1000ms] ease-in-out ${
-                  isOpening ? 'opacity-100 scale-110 rotate-12' : 'opacity-0 scale-50'
-                }`}
-              >
-                <div className="text-6xl animate-pulse">💌</div>
-              </div>
-            </div>
             </div>
           </div>
         ) : (
@@ -211,8 +230,12 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
                   <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-500 to-purple-500 animate-gradient-shift-reverse drop-shadow-lg tracking-tight">
                     Sinh Nhật!
                   </h1>
-                  <div className="absolute -top-2 -right-8 text-4xl animate-spin-slow">🎂</div>
-                  <div className="absolute -bottom-2 -left-8 text-3xl animate-bounce-slow">🎉</div>
+                  <div className="absolute -top-2 -right-8 text-4xl animate-spin-slow">
+                    🎂
+                  </div>
+                  <div className="absolute -bottom-2 -left-8 text-3xl animate-bounce-slow">
+                    🎉
+                  </div>
                 </div>
 
                 {/* Decorative hearts */}
