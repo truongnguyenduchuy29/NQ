@@ -21,13 +21,15 @@ const BirthdayLetter = () => {
   >([]);
   const [displayedText, setDisplayedText] = useState('');
 
-  const fullText = `Chúc bạn một ngày sinh nhật thật vui vẻ và tràn đầy niềm vui! 🎈
+  const fullText = `Chúc mừng sinh nhật 18 tuổi lần thứ 4 của Như Quỳnh! 
 
-Mong rằng tuổi mới này sẽ mang đến cho bạn thật nhiều sức khỏe, hạnh phúc và những điều tốt đẹp nhất trong cuộc sống. ✨
+Tuổi mới chúc em luôn vui vẻ, có nhiều sức khỏe, xinh đẹp. 
 
-Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công việc! Hãy tận hưởng ngày đặc biệt này thật trọn vẹn nhé! 🌟
+Đặc biệt mau giàu nha giờ cũng là phú bà rồi =)) 💰✨
 
-🎁 Happy Birthday! 🎊`;
+Cám ơn em vì đã cho anh cơ hội được bước vào cuộc sống của em. 
+
+Tuổi mới rực rỡ nhá! 🌟`;
 
   const handleEnvelopeClick = () => {
     if (isOpened) return;
@@ -144,10 +146,18 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
         ))}
 
         {/* Corner decorations - subtler */}
-        <div className="absolute top-8 left-8 text-5xl animate-float opacity-50 blur-[0.5px]">🎈</div>
-        <div className="absolute top-16 right-12 text-4xl animate-float-delayed opacity-50 blur-[0.5px]">🎀</div>
-        <div className="absolute bottom-16 left-16 text-4xl animate-float-slow opacity-50 blur-[0.5px]">🎂</div>
-        <div className="absolute bottom-12 right-20 text-5xl animate-float opacity-50 blur-[0.5px]">�</div>
+        <div className="absolute top-8 left-8 text-5xl animate-float opacity-50 blur-[0.5px]">
+          🎈
+        </div>
+        <div className="absolute top-16 right-12 text-4xl animate-float-delayed opacity-50 blur-[0.5px]">
+          🎀
+        </div>
+        <div className="absolute bottom-16 left-16 text-4xl animate-float-slow opacity-50 blur-[0.5px]">
+          🎂
+        </div>
+        <div className="absolute bottom-12 right-20 text-5xl animate-float opacity-50 blur-[0.5px]">
+          �
+        </div>
       </div>
 
       {hearts.map((heart) => (
@@ -172,7 +182,7 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
           <div className="flex flex-col items-center gap-8">
             {/* Elegant frame around envelope */}
             <div className="absolute -inset-12 bg-gradient-to-br from-white/60 via-pink-50/50 to-purple-50/50 backdrop-blur-md rounded-[2rem] border border-white/80 shadow-[0_8px_32px_rgba(255,182,193,0.3)] -z-10"></div>
-            
+
             {/* Flying paper from envelope */}
             {showPaper && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-paper-fly z-30">
@@ -196,22 +206,26 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
                 </div>
               </div>
             )}
-            
+
             {/* Instruction text */}
             <div className="text-center relative mb-4">
               {/* Decorative sparkles */}
-              <div className="absolute -left-16 top-0 text-2xl animate-twinkle">✨</div>
-              <div className="absolute -right-16 top-0 text-2xl animate-twinkle" style={{ animationDelay: '0.5s' }}>✨</div>
-              
+              <div className="absolute -left-16 top-0 text-2xl animate-twinkle">
+                ✨
+              </div>
+              <div
+                className="absolute -right-16 top-0 text-2xl animate-twinkle"
+                style={{ animationDelay: '0.5s' }}
+              >
+                ✨
+              </div>
+
               <div className="inline-block">
                 <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 mb-2 drop-shadow-sm">
                   Click để mở thư
                 </p>
                 <div className="h-1 w-full bg-gradient-to-r from-pink-400 via-rose-400 to-purple-500 rounded-full animate-shimmer"></div>
               </div>
-              <p className="text-sm text-gray-600 mt-3 font-medium">
-                👇 Nhấn vào phong bì bên dưới 👇
-              </p>
             </div>
 
             <div
@@ -306,10 +320,10 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
                 {/* Main title with animated gradient */}
                 <div className="relative inline-block mb-3">
                   <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-gradient-shift mb-2 drop-shadow-lg tracking-tight">
-                    Chúc Mừng
+                    Happy
                   </h1>
                   <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-500 to-purple-500 animate-gradient-shift-reverse drop-shadow-lg tracking-tight">
-                    Sinh Nhật!
+                    Birthday!
                   </h1>
                   <div className="absolute -top-2 -right-8 text-4xl animate-spin-slow">
                     🎂
@@ -344,7 +358,14 @@ Chúc bạn luôn tươi trẻ, xinh đẹp và thành công trong mọi công v
                   {displayedText.split('\n').map((line, lineIndex) => (
                     <div key={lineIndex} className="mb-4">
                       {line.split('').map((char, charIndex) => {
-                        const globalIndex = displayedText.substring(0, displayedText.split('\n').slice(0, lineIndex).join('\n').length + (lineIndex > 0 ? 1 : 0)).length + charIndex;
+                        const globalIndex =
+                          displayedText.substring(
+                            0,
+                            displayedText
+                              .split('\n')
+                              .slice(0, lineIndex)
+                              .join('\n').length + (lineIndex > 0 ? 1 : 0)
+                          ).length + charIndex;
                         return (
                           <span
                             key={`${lineIndex}-${charIndex}`}
