@@ -188,11 +188,20 @@ Tuổi mới rực rỡ nhá!`;
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
                 <div className="relative w-[480px] h-[312px] flex items-center justify-center">
                   {/* The paper inside envelope pulling upward and unfolding */}
-                  <div className="absolute bottom-0 w-[380px] h-[240px] animate-paper-pull-out" style={{ perspective: '1200px' }}>
+                  <div
+                    className="absolute bottom-0 w-[380px] h-[240px] animate-paper-pull-out"
+                    style={{ perspective: '1200px' }}
+                  >
                     {/* Folded paper opening */}
-                    <div className="relative w-full h-full" style={{ transformStyle: 'preserve-3d' }}>
+                    <div
+                      className="relative w-full h-full"
+                      style={{ transformStyle: 'preserve-3d' }}
+                    >
                       {/* Top half of folded paper */}
-                      <div className="absolute w-full h-1/2 bg-gradient-to-br from-white to-pink-50 shadow-[0_-5px_40px_rgba(0,0,0,0.3)] border-2 border-pink-200/50 border-b-pink-200/30 origin-bottom animate-paper-unfold-top" style={{ borderRadius: '12px 12px 0 0' }}>
+                      <div
+                        className="absolute w-full h-1/2 bg-gradient-to-br from-white to-pink-50 shadow-[0_-5px_40px_rgba(0,0,0,0.3)] border-2 border-pink-200/50 border-b-pink-200/30 origin-bottom animate-paper-unfold-top"
+                        style={{ borderRadius: '12px 12px 0 0' }}
+                      >
                         <div className="p-6 text-center rotate-180">
                           <div className="text-3xl mb-2">💌</div>
                           <p className="text-sm font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
@@ -202,7 +211,10 @@ Tuổi mới rực rỡ nhá!`;
                       </div>
                       {/* Bottom half with message */}
                       <div className="absolute w-full h-full top-0 bg-gradient-to-br from-amber-50 to-yellow-50 shadow-[0_5px_40px_rgba(0,0,0,0.2)] border-2 border-pink-200/50 overflow-hidden rounded-xl">
-                        <div className="p-6 text-center opacity-0 animate-message-reveal" style={{ animationDelay: '1.8s' }}>
+                        <div
+                          className="p-6 text-center opacity-0 animate-message-reveal"
+                          style={{ animationDelay: '1.8s' }}
+                        >
                           <div className="text-4xl mb-2 animate-bounce">🎉</div>
                           <div className="flex justify-center gap-1">
                             {[...Array(3)].map((_, i) => (
