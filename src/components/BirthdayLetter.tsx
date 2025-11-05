@@ -187,46 +187,95 @@ Tuổi mới rực rỡ nhá!`;
             {showPaper && !isOpened && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
                 <div className="relative w-[480px] h-[312px] flex items-center justify-center">
-                  {/* The paper inside envelope pulling upward and unfolding */}
+                  {/* Letter container with 3D perspective */}
                   <div
-                    className="absolute bottom-0 w-[380px] h-[240px] animate-paper-pull-out"
-                    style={{ perspective: '1200px' }}
+                    className="absolute bottom-0 w-[360px] h-[280px]"
+                    style={{ 
+                      perspective: '2000px',
+                      perspectiveOrigin: '50% 50%'
+                    }}
                   >
-                    {/* Folded paper opening */}
+                    {/* Animated letter wrapper */}
                     <div
-                      className="relative w-full h-full"
+                      className="relative w-full h-full animate-letter-slide-up"
                       style={{ transformStyle: 'preserve-3d' }}
                     >
-                      {/* Top half of folded paper */}
-                      <div
-                        className="absolute w-full h-1/2 bg-gradient-to-br from-white to-pink-50 shadow-[0_-5px_40px_rgba(0,0,0,0.3)] border-2 border-pink-200/50 border-b-pink-200/30 origin-bottom animate-paper-unfold-top"
-                        style={{ borderRadius: '12px 12px 0 0' }}
-                      >
-                        <div className="p-6 text-center rotate-180">
-                          <div className="text-3xl mb-2">💌</div>
-                          <p className="text-sm font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                      {/* Back of letter (visible when folded) */}
+                      <div className="absolute w-full h-full bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg shadow-2xl border-2 border-pink-200/60" 
+                           style={{ 
+                             transform: 'translateZ(-2px)',
+                             backfaceVisibility: 'visible'
+                           }}>
+                      </div>
+
+                      {/* Front bottom part of letter (fixed) */}
+                      <div className="absolute w-full h-[55%] bottom-0 left-0 bg-gradient-to-br from-amber-50 via-yellow-50 to-pink-50 rounded-b-lg shadow-xl border-2 border-pink-200/60 border-t-0 overflow-hidden"
+                           style={{ 
+                             transformStyle: 'preserve-3d',
+                             zIndex: 2
+                           }}>
+                        {/* Content that appears when opened */}
+                        <div className="w-full h-full flex flex-col items-center justify-center p-6 opacity-0 animate-content-fade-in"
+                             style={{ animationDelay: '2.2s' }}>
+                          <div className="text-5xl mb-3 animate-bounce" style={{ animationDelay: '2.3s' }}>
+                            🎉
+                          </div>
+                          <p className="text-lg font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-3">
                             Đang mở thư...
                           </p>
-                        </div>
-                      </div>
-                      {/* Bottom half with message */}
-                      <div className="absolute w-full h-full top-0 bg-gradient-to-br from-amber-50 to-yellow-50 shadow-[0_5px_40px_rgba(0,0,0,0.2)] border-2 border-pink-200/50 overflow-hidden rounded-xl">
-                        <div
-                          className="p-6 text-center opacity-0 animate-message-reveal"
-                          style={{ animationDelay: '1.8s' }}
-                        >
-                          <div className="text-4xl mb-2 animate-bounce">🎉</div>
-                          <div className="flex justify-center gap-1">
+                          <div className="flex justify-center gap-2">
                             {[...Array(3)].map((_, i) => (
                               <div
                                 key={i}
-                                className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
-                                style={{ animationDelay: `${i * 0.15}s` }}
+                                className="w-2.5 h-2.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-bounce"
+                                style={{ animationDelay: `${2.4 + i * 0.1}s` }}
                               ></div>
                             ))}
                           </div>
                         </div>
+                        
+                        {/* Decorative pattern */}
+                        <div className="absolute inset-0 opacity-10 pointer-events-none">
+                          <div className="absolute top-2 left-2 text-xs">💝</div>
+                          <div className="absolute top-2 right-2 text-xs">💝</div>
+                          <div className="absolute bottom-2 left-2 text-xs">💝</div>
+                          <div className="absolute bottom-2 right-2 text-xs">💝</div>
+                        </div>
                       </div>
+
+                      {/* Top folding part of letter */}
+                      <div className="absolute w-full h-[50%] top-0 left-0 origin-bottom animate-letter-unfold"
+                           style={{ 
+                             transformStyle: 'preserve-3d',
+                             zIndex: 3
+                           }}>
+                        {/* Front side (outside of the folded top) */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white via-pink-50 to-rose-100 rounded-t-lg shadow-2xl border-2 border-pink-200/60 border-b-pink-300/40"
+                             style={{ 
+                               backfaceVisibility: 'hidden',
+                               transform: 'rotateX(0deg)',
+                             }}>
+                        </div>
+                        
+                        {/* Back side (inside, visible when opened) */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-rose-50 to-pink-100 rounded-t-lg shadow-xl border-2 border-pink-200/60"
+                             style={{ 
+                               backfaceVisibility: 'hidden',
+                               transform: 'rotateX(180deg)',
+                             }}>
+                          <div className="w-full h-full flex items-center justify-center p-4">
+                            <div className="text-center">
+                              <div className="text-4xl mb-2 animate-pulse">💌</div>
+                              <p className="text-xs font-semibold text-pink-600/80">
+                                Happy Birthday!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Shadow underneath */}
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[90%] h-4 bg-black/10 rounded-full blur-md animate-shadow-expand"></div>
                     </div>
                   </div>
                 </div>
@@ -751,68 +800,101 @@ Tuổi mới rực rỡ nhá!`;
           animation-delay: 1.5s;
         }
 
-        /* Paper pulling out and unfolding animations */
-        @keyframes paper-pull-out {
+        /* Beautiful letter opening animations */
+        @keyframes letter-slide-up {
           0% {
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0) scale(0.95);
             opacity: 0;
           }
-          30% {
+          25% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0) scale(0.95);
+          }
+          50% {
+            transform: translateY(-100px) translateZ(10px) scale(1);
           }
           70% {
-            transform: translateY(-120px);
+            transform: translateY(-130px) translateZ(15px) scale(1.02);
           }
           85% {
-            transform: translateY(-140px);
+            transform: translateY(-145px) translateZ(20px) scale(1.03);
           }
           100% {
-            transform: translateY(-130px);
+            transform: translateY(-140px) translateZ(20px) scale(1.02);
           }
         }
 
-        @keyframes paper-unfold-top {
+        @keyframes letter-unfold {
           0% {
-            transform: rotateX(0deg);
+            transform: rotateX(0deg) translateZ(2px);
           }
-          40% {
-            transform: rotateX(0deg);
+          25% {
+            transform: rotateX(0deg) translateZ(2px);
           }
-          70% {
-            transform: rotateX(-100deg);
+          50% {
+            transform: rotateX(-60deg) translateZ(4px);
           }
-          85% {
-            transform: rotateX(-160deg);
+          65% {
+            transform: rotateX(-120deg) translateZ(6px);
+          }
+          80% {
+            transform: rotateX(-165deg) translateZ(8px);
+          }
+          90% {
+            transform: rotateX(-185deg) translateZ(10px);
           }
           100% {
-            transform: rotateX(-180deg);
+            transform: rotateX(-180deg) translateZ(10px);
           }
         }
 
-        @keyframes message-reveal {
+        @keyframes content-fade-in {
           0% {
             opacity: 0;
-            transform: scale(0.8) translateY(20px);
+            transform: translateY(20px) scale(0.9);
+            filter: blur(5px);
+          }
+          50% {
+            transform: translateY(-5px) scale(1.05);
+            filter: blur(2px);
           }
           100% {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
           }
         }
 
-        .animate-paper-pull-out {
-          animation: paper-pull-out 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        @keyframes shadow-expand {
+          0% {
+            transform: translateX(-50%) scale(0.5);
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.15;
+            transform: translateX(-50%) scale(1.2);
+          }
+          100% {
+            transform: translateX(-50%) scale(1);
+            opacity: 0.1;
+          }
         }
 
-        .animate-paper-unfold-top {
-          animation: paper-unfold-top 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .animate-letter-slide-up {
+          animation: letter-slide-up 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .animate-letter-unfold {
+          animation: letter-unfold 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
           transform-origin: bottom center;
-          backface-visibility: hidden;
         }
 
-        .animate-message-reveal {
-          animation: message-reveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        .animate-content-fade-in {
+          animation: content-fade-in 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .animate-shadow-expand {
+          animation: shadow-expand 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         /* New improved animations */
