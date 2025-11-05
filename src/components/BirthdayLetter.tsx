@@ -27,7 +27,7 @@ Tuổi mới chúc em luôn vui vẻ, có nhiều sức khỏe, xinh đẹp.
 
 Đặc biệt mau giàu nha giờ cũng là phú bà rồi =)) 
 
-Cám ơn em vì đã cho anh cơ hội được bước vào cuộc sống của em.
+Cảm ơn em vì đã cho anh cơ hội được bước vào cuộc sống của em.
 
 Tuổi mới rực rỡ nhá!`;
 
