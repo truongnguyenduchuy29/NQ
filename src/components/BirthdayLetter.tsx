@@ -27,9 +27,9 @@ Tuổi mới chúc em luôn vui vẻ, có nhiều sức khỏe, xinh đẹp.
 
 Đặc biệt mau giàu nha giờ cũng là phú bà rồi =)) 
 
-Cám ơn em vì đã cho anh cơ hội được bước vào cuộc sống của em. 
+Cám ơn em vì đã cho anh cơ hội được bước vào cuộc sống của em.
 
-Tuổi mới rực rỡ nhá! `;
+Tuổi mới rực rỡ nhá!`;
 
   const handleEnvelopeClick = () => {
     if (isOpened) return;
@@ -43,20 +43,20 @@ Tuổi mới rực rỡ nhá! `;
     setHearts(newHearts);
     setIsOpening(true);
 
-    // Show paper flying out after hearts start bursting
+    // Show paper pulling out after hearts start bursting
     setTimeout(() => {
       setShowPaper(true);
-    }, 1200);
+    }, 800);
 
-    // Open the letter/card after paper settles
+    // Open the letter/card after paper fully pulled out
     setTimeout(() => {
       setIsOpened(true);
-    }, 3000);
+    }, 3500);
 
     // Clear hearts after they finish
     setTimeout(() => {
       setHearts([]);
-    }, 3500);
+    }, 2500);
   };
 
   useEffect(() => {
@@ -156,7 +156,7 @@ Tuổi mới rực rỡ nhá! `;
           🎂
         </div>
         <div className="absolute bottom-12 right-20 text-5xl animate-float opacity-50 blur-[0.5px]">
-          �
+          🎁
         </div>
       </div>
 
@@ -183,24 +183,38 @@ Tuổi mới rực rỡ nhá! `;
             {/* Elegant frame around envelope */}
             <div className="absolute -inset-12 bg-gradient-to-br from-white/60 via-pink-50/50 to-purple-50/50 backdrop-blur-md rounded-[2rem] border border-white/80 shadow-[0_8px_32px_rgba(255,182,193,0.3)] -z-10"></div>
 
-            {/* Flying paper from envelope */}
-            {showPaper && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-paper-fly z-30">
-                <div className="bg-gradient-to-br from-white to-pink-50 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] p-8 w-80 transform animate-paper-unfold border-2 border-pink-200/50">
-                  <div className="text-center">
-                    <div className="text-5xl mb-3 animate-bounce">💌</div>
-                    <div className="h-1 w-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mx-auto mb-3"></div>
-                    <p className="text-xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-                      Đang mở thư...
-                    </p>
-                    <div className="flex justify-center gap-1 mt-3">
-                      {[...Array(3)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
-                          style={{ animationDelay: `${i * 0.15}s` }}
-                        ></div>
-                      ))}
+            {/* Paper pulling out and unfolding from envelope */}
+            {showPaper && !isOpened && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                <div className="relative w-[480px] h-[312px] flex items-center justify-center">
+                  {/* The paper inside envelope pulling upward and unfolding */}
+                  <div className="absolute bottom-0 w-[380px] h-[240px] animate-paper-pull-out" style={{ perspective: '1200px' }}>
+                    {/* Folded paper opening */}
+                    <div className="relative w-full h-full" style={{ transformStyle: 'preserve-3d' }}>
+                      {/* Top half of folded paper */}
+                      <div className="absolute w-full h-1/2 bg-gradient-to-br from-white to-pink-50 shadow-[0_-5px_40px_rgba(0,0,0,0.3)] border-2 border-pink-200/50 border-b-pink-200/30 origin-bottom animate-paper-unfold-top" style={{ borderRadius: '12px 12px 0 0' }}>
+                        <div className="p-6 text-center rotate-180">
+                          <div className="text-3xl mb-2">💌</div>
+                          <p className="text-sm font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                            Đang mở thư...
+                          </p>
+                        </div>
+                      </div>
+                      {/* Bottom half with message */}
+                      <div className="absolute w-full h-full top-0 bg-gradient-to-br from-amber-50 to-yellow-50 shadow-[0_5px_40px_rgba(0,0,0,0.2)] border-2 border-pink-200/50 overflow-hidden rounded-xl">
+                        <div className="p-6 text-center opacity-0 animate-message-reveal" style={{ animationDelay: '1.8s' }}>
+                          <div className="text-4xl mb-2 animate-bounce">🎉</div>
+                          <div className="flex justify-center gap-1">
+                            {[...Array(3)].map((_, i) => (
+                              <div
+                                key={i}
+                                className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
+                                style={{ animationDelay: `${i * 0.15}s` }}
+                              ></div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -232,7 +246,7 @@ Tuổi mới rực rỡ nhá! `;
               onClick={handleEnvelopeClick}
               className="cursor-pointer transform transition-transform hover:scale-105 active:scale-95"
             >
-              <div className="relative w-80 h-52">
+              <div className="relative w-[480px] h-[312px]">
                 <div
                   className={`absolute inset-0 transition-all duration-[1200ms] ease-out ${
                     isOpening ? 'opacity-0 scale-110 rotate-6' : 'opacity-100'
@@ -299,7 +313,7 @@ Tuổi mới rực rỡ nhá! `;
           </div>
         ) : (
           <div className="animate-letter-appear">
-            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg shadow-2xl p-8 w-96 max-w-full border-4 border-amber-200 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg shadow-2xl p-10 w-[600px] max-w-[90vw] border-4 border-amber-200 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300"></div>
               <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300"></div>
 
@@ -354,7 +368,7 @@ Tuổi mới rực rỡ nhá! `;
               </div>
 
               <div className="space-y-4 text-gray-700 leading-relaxed">
-                <div className="text-lg whitespace-pre-wrap min-h-[300px] relative">
+                <div className="text-xl whitespace-pre-wrap min-h-[320px] relative font-medium">
                   {displayedText.split('\n').map((line, lineIndex) => (
                     <div key={lineIndex} className="mb-4">
                       {line.split('').map((char, charIndex) => {
@@ -725,47 +739,68 @@ Tuổi mới rực rỡ nhá! `;
           animation-delay: 1.5s;
         }
 
-        /* Paper flying and unfolding animations */
-        @keyframes paper-fly {
+        /* Paper pulling out and unfolding animations */
+        @keyframes paper-pull-out {
           0% {
-            transform: translateY(100px) scale(0.3) rotate(0deg);
+            transform: translateY(0);
             opacity: 0;
           }
           30% {
-            transform: translateY(-50px) scale(0.8) rotate(15deg);
             opacity: 1;
+            transform: translateY(0);
           }
-          60% {
-            transform: translateY(20px) scale(1.1) rotate(-10deg);
-            opacity: 1;
+          70% {
+            transform: translateY(-120px);
+          }
+          85% {
+            transform: translateY(-140px);
           }
           100% {
-            transform: translateY(0) scale(1) rotate(0deg);
-            opacity: 1;
+            transform: translateY(-130px);
           }
         }
 
-        @keyframes paper-unfold {
+        @keyframes paper-unfold-top {
           0% {
-            transform: scaleY(0.3) rotateX(90deg);
-            opacity: 0;
+            transform: rotateX(0deg);
           }
-          50% {
-            transform: scaleY(1) rotateX(-10deg);
+          40% {
+            transform: rotateX(0deg);
+          }
+          70% {
+            transform: rotateX(-100deg);
+          }
+          85% {
+            transform: rotateX(-160deg);
           }
           100% {
-            transform: scaleY(1) rotateX(0deg);
-            opacity: 1;
+            transform: rotateX(-180deg);
           }
         }
 
-        .animate-paper-fly {
-          animation: paper-fly 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        @keyframes message-reveal {
+          0% {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
         }
 
-        .animate-paper-unfold {
-          animation: paper-unfold 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-          transform-origin: center top;
+        .animate-paper-pull-out {
+          animation: paper-pull-out 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-paper-unfold-top {
+          animation: paper-unfold-top 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          transform-origin: bottom center;
+          backface-visibility: hidden;
+        }
+
+        .animate-message-reveal {
+          animation: message-reveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         /* New improved animations */
